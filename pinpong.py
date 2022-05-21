@@ -1,5 +1,6 @@
 from pygame import *
- 
+speed_x = 3
+speed_y = 3
 #игровая сцена:
 back = (200, 255, 255) #цвет фона (background)
 win_width = 600
@@ -53,11 +54,17 @@ while game:
         if e.type == QUIT:
             game = False  
     if finish != True:
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
         window.fill(back)
         Raketka_1.update_r()
         Raketka_2.update_l()
         Raketka_1.reset()
         Raketka_2.reset()
         ball.reset()
+    if ball.rect.y > win_height-50 or ball.rect.y < 0:
+        speed_y *= -1
+    if sprite.collide_rect(Raketka_1, ball) or  sprite.collide_rect(Raketka_2, ball):
+        speed *= -1
     display.update()
     clock.tick(FPS)
